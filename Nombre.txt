@@ -1,0 +1,10 @@
+/Users/galigaribaldi/Documents/PPropios/Validador_Py
+Darwin
+Darwin
+3.8.3 (v3.8.3:6f8c8320e9, May 13 2020, 16:29:34) 
+[Clang 6.0 (clang-600.0.57)]
+3.8.3
+127.0.0.1
+galigaribaldi
+2021-02-16
+2021-02-16 19:16:47.917567

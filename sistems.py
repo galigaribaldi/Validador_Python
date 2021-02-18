@@ -14,8 +14,7 @@ def user_information(option):
             from subprocess import call
             call('clear')
         if str(platform.system()) == 'Windows':
-            from subprocess import call
-            call('cls')
+            os.system("cls")
         print("Directorio de Ejecucion: ", os.getcwd())
         print("Tipo de sistema operativo: ", platform.system())
         print("Nombre del sistema operativo: ", sys.platform)
@@ -31,4 +30,4 @@ def user_information(option):
     listaDatos.append("Usuario que ejecuta el programa: "+str(getuser()));listaDatos.append("Fecha sin hora: "+str(date.today())); listaDatos.append("Fecha con hora: "+str(datetime.now()))
     #print(listaDatos)
     return listaDatos
-user_information(1)
+#user_information(1)

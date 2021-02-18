@@ -1,4 +1,37 @@
 class Master:
+    def ui(self, option):
+        ###Informacion del usuario
+        import os
+        import sys
+        import socket
+        from getpass import getuser
+        from datetime import date, datetime
+        import platform
+        ####Script principal sobre la informaicon del usuario que trae ifno del usuario
+        listaDatos = []
+        
+        if option > 0:
+            if str(platform.system()) == 'Darwin' or str(platform.system())=='Linux':
+                from subprocess import call
+                call('clear')
+            if str(platform.system()) == 'Windows':
+                os.system("cls")
+            print("Directorio de Ejecucion: ", os.getcwd())
+            print("Tipo de sistema operativo: ", platform.system())
+            print("Nombre del sistema operativo: ", sys.platform)
+            print("Nombre de la versión: ", sys.version)
+            print("Versión de python que se ejecuta: ", platform.python_version())
+            print("Direccion ip de ejecución: ", socket.gethostbyname(socket.gethostname()))
+            print("Usuario que ejecuta el programa: ", getuser())
+            print("Fecha sin hora: ", date.today())
+            print("Fecha con hora: ", datetime.now())
+            
+        listaDatos.append("Directorio de Ejecucion: "+str(os.getcwd()));listaDatos.append("Tipo de sistema operativo: "+str(platform.system()));listaDatos.append("Nombre del sistema operativo: "+str(platform.system()))
+        listaDatos.append("Nombre de la versión: "+str(sys.version));listaDatos.append("Versión de python que se ejecuta: "+str(platform.python_version())); listaDatos.append("Direccion ip de ejecución: "+str(socket.gethostbyname(socket.gethostname())))
+        listaDatos.append("Usuario que ejecuta el programa: "+str(getuser()));listaDatos.append("Fecha sin hora: "+str(date.today())); listaDatos.append("Fecha con hora: "+str(datetime.now()))
+        #print(listaDatos)
+        return listaDatos
+
     def enviar_correo_PDF(self, correo_destinatario, asunto,nombre_PDF):
         import smtplib
         from email.mime.multipart import MIMEMultipart
@@ -49,8 +82,7 @@ class Master:
         sesion_smtp.quit()
         
     def txt(self, NombreTitulo, opcion):
-        from sistems import user_information
-        valor = user_information(1)
+        valor = self.ui(1)
         titulo = str(NombreTitulo)
         f = open (titulo,'w')
         for i in valor:
@@ -60,7 +92,7 @@ class Master:
         else:
             f.write("Status: Completado, checar revision")
         f.close()
-    
+
     def validar(self, NombreArchivo):
         import os
         import platform    

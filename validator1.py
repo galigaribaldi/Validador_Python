@@ -1,14 +1,18 @@
 import os
+#import os.path
+import platform
 #try:
-c = os.system('python3 pruebaTurtle.py')
-if c ==0:
-    print("Validación terminada! completado")
-#except Exception as e:
-else:
-    #error = str(e)
-    #c = 1
-    print("El codigo no corrio debido al error: ", c)
-#print(c)
-#if c == 0:
-#else:
-    
+def validar(NombreArchivo):
+    ###Validar que el archivo existe
+    if os.path.exists(NombreArchivo):
+        if str(platform.system()) == 'Darwin' or str(platform.system())=='Linux':
+            cadena = 'python3 '+NombreArchivo
+            c = os.system(cadena)
+        if str(platform.system()) == 'Windows':
+            cadena = 'python '+NombreArchivo
+            c = os.system(cadena)
+    ##Si el archivo no existe regresar 300
+    else:
+        c = 300
+    return c
+#c = validar('pruebaTurtle.py')

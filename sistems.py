@@ -26,9 +26,9 @@ def user_information(option):
         print("Fecha sin hora: ", date.today())
         print("Fecha con hora: ", datetime.now())
         
-    listaDatos.append(str(os.getcwd()));listaDatos.append(str(platform.system()));listaDatos.append(str(platform.system()))
-    listaDatos.append(str(sys.version));listaDatos.append(str(platform.python_version())); listaDatos.append(str(socket.gethostbyname(socket.gethostname())))
-    listaDatos.append(str(getuser()));listaDatos.append(str(date.today())); listaDatos.append(str(datetime.now()))
+    listaDatos.append("Directorio de Ejecucion: "+str(os.getcwd()));listaDatos.append("Tipo de sistema operativo: "+str(platform.system()));listaDatos.append("Nombre del sistema operativo: "+str(platform.system()))
+    listaDatos.append("Nombre de la versión: "+str(sys.version));listaDatos.append("Versión de python que se ejecuta: "+str(platform.python_version())); listaDatos.append("Direccion ip de ejecución: "+str(socket.gethostbyname(socket.gethostname())))
+    listaDatos.append("Usuario que ejecuta el programa: "+str(getuser()));listaDatos.append("Fecha sin hora: "+str(date.today())); listaDatos.append("Fecha con hora: "+str(datetime.now()))
     #print(listaDatos)
     return listaDatos
 user_information(1)

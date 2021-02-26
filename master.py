@@ -1,5 +1,5 @@
 class Master:
-    def ui(self, option):
+    def ui(self, option, nombrePrograma):
         ###Informacion del usuario
         import os
         import sys
@@ -16,6 +16,7 @@ class Master:
                 call('clear')
             if str(platform.system()) == 'Windows':
                 os.system("cls")
+            print("Nombre del programa: ",nombrePrograma )
             print("Directorio de Ejecucion: ", os.getcwd())
             print("Tipo de sistema operativo: ", platform.system())
             print("Nombre del sistema operativo: ", sys.platform)
@@ -25,7 +26,7 @@ class Master:
             print("Usuario que ejecuta el programa: ", getuser())
             print("Fecha sin hora: ", date.today())
             print("Fecha con hora: ", datetime.now())
-            
+        listaDatos.append("Nombre del programa: "+nombrePrograma )
         listaDatos.append("Directorio de Ejecucion: "+str(os.getcwd()));listaDatos.append("Tipo de sistema operativo: "+str(platform.system()));listaDatos.append("Nombre del sistema operativo: "+str(platform.system()))
         listaDatos.append("Nombre de la versión: "+str(sys.version));listaDatos.append("Versión de python que se ejecuta: "+str(platform.python_version())); listaDatos.append("Direccion ip de ejecución: "+str(socket.gethostbyname(socket.gethostname())))
         listaDatos.append("Usuario que ejecuta el programa: "+str(getuser()));listaDatos.append("Fecha sin hora: "+str(date.today())); listaDatos.append("Fecha con hora: "+str(datetime.now()))
@@ -82,7 +83,7 @@ class Master:
         sesion_smtp.quit()
         
     def txt(self, NombreTitulo, opcion):
-        valor = self.ui(1)
+        valor = self.ui(1, NombreTitulo)
         titulo = str(NombreTitulo)
         f = open (titulo,'w')
         for i in valor:
@@ -137,6 +138,6 @@ class Master:
             print("Fallo inesperado, intentalo nuevamente", e)
 
 if __name__ =='__main__':
-    nombrePrograma = 'pruebaTurtle.py'
+    nombrePrograma = 'tarea-06.py'
     m = Master()
     m.main(nombrePrograma)

@@ -27,8 +27,9 @@ def addTeachers(numId, teacher_email):
         print('User "{%s}" is already a member of this course.'
             % teacher_email)
 #addTeachers(275450839438, 'galigaribaldi70@gmail.com')
+
 def addStudent(numId, student_email):
-    enrollment_code = 'abcdef'
+    enrollment_code = '3kvxmue'
     student = {
         'userId': student_email
     }
@@ -42,8 +43,10 @@ def addStudent(numId, student_email):
             the course with ID "{%s}"'''
             % (student.get('profile').get('name').get('fullName'),
             numId))
-    except errors.HttpError as error:
+    except HttpError as error:
         print('You are already a member of this course.')    
+
+addStudent(275450839438,'galigaribaldi@live.com')
 
 def viewStudents(numId, user_Id):
     student = service.courses().students()
@@ -52,7 +55,7 @@ def viewStudents(numId, user_Id):
     print("Nombre Alumno: ", student1['name']['fullName']) 
     print("Email: ", student1['emailAddress'])
     print("\n")
-viewStudents(275450839438,100905005032845497156)
-viewStudents(275450839438,102278109585891765381)
-viewStudents(275450839438,113580004965193682564)
-viewStudents(275450839438,105429210421642055860)
+#viewStudents(275450839438,100905005032845497156)
+#viewStudents(275450839438,102278109585891765381)
+#viewStudents(275450839438,113580004965193682564)
+#viewStudents(275450839438,105429210421642055860)

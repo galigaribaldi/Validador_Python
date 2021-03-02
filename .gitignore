@@ -1,3 +1,4 @@
 prueba*
 __pycache__
 *.txt
+*.pickle

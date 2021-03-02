@@ -13,9 +13,9 @@ service = build('classroom', 'v1', credentials=creds)
 # Call the Classroom API
 results = service.courses().list(pageSize=10).execute()
 courses = results.get('courses', [])
-print(courses)
+#print(courses)
 for i in courses:
-    print(i["id"], i["name"], i['teacherGroupEmail'], i['descriptionHeading'])
+    print(i["id"], i["name"], i['teacherGroupEmail'], i['descriptionHeading'], i['courseState'])
 
 course = service.courses().get(id=275450839438).execute()
 print('Course "{%s}" found.' % course.get('name'))

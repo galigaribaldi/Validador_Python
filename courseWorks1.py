@@ -4,6 +4,8 @@ from googleapiclient.discovery import build
 import os.path
 import pickle
 #####
+###Course Id = 291374157706
+### CourseWork = 291383409581
 creds = None
 if os.path.exists('token.pickle'):
     with open('token.pickle', 'rb') as token:
@@ -26,7 +28,7 @@ def createCourseWork(numId, titulo, descripcion, link1, link2):
         courseId=numId, body=coursework).execute()
     print('Assignment created with ID {%s}' % coursework.get('id'))
 
-#createCourseWork(275450839438,'Nueva Tarea', 'Descripcion mamalona', 'https://youtu.be/pMbXKsp2hy4', 'https://youtu.be/9gA1DE1zqEA')
+#createCourseWork(291374157706,'Nueva Tarea', 'Descripcion mamalona', 'https://youtu.be/pMbXKsp2hy4', 'https://youtu.be/9gA1DE1zqEA') 
 
 ##Cosultar el progreso de todas las actividades
 def list_submissions(course_id, coursework_id):
@@ -53,11 +55,11 @@ def list_submissions(course_id, coursework_id):
         for submission in submissions:
             #print("%s was submitted at %s" %(submission.get('id'),submission.get('creationTime')))
             #print(submission)
-            print("Course ID: [%s]\nCourseWork ID: [%s]\nUserID: [%s]" %(submission.get('courseId'), submission.get('courseWorkId'), submission.get('userId')))
+            print("Course ID: [%s]\nCourseWork ID: [%s]\nUserID: [%s]\nSubmission ID: [%s]" %(submission.get('courseId'), submission.get('courseWorkId'), submission.get('userId'), submission.get('id')))
             print("\n")
     # [END classroom_list_submissions]
-#283498401726
-list_submissions(275450839438, 283498401726)
+
+#list_submissions(291374157706, 291383409581)
 
 ##Consultar el progrso de las actividades de 
 def list_student_submissions(course_id, coursework_id, user_id):
@@ -80,24 +82,44 @@ def list_student_submissions(course_id, coursework_id, user_id):
         print('No student submissions found.')
     else:
         print('Student Submissions:')
-        print(submissions)
+        #print(submissions)
         for submission in submissions:
             #print("%s was submitted at %s" % (submission.get('id'),submission.get('creationTime')))
             print("Course ID: [%s]\nCourseWork ID: [%s]\nUserID: [%s]" %(submission.get('courseId'), submission.get('courseWorkId'), submission.get('userId')))
+            print("Submission Id: ", submission.get('id'))
             print("\n")
-            print(submission.get('id'))
 
-list_student_submissions(275450839438, 283498401726, 102278109585891765381)
-def updateCalificacion(course_id, coursework_id, student_id):
+#list_student_submissions(291374157706, 291383409581, 113580004965193682564)
+def updateCalificacion(course_id, coursework_id, submission_id,student_id):
     studentSubmission = {
-    'assignedGrade': 99,
-    'draftGrade': 80
+    'assignedGrade': 1000,
+    'draftGrade': 8000
     }
-    service.courses().courseWork().studentSubmissions().turnIn(
+    service.courses().courseWork().studentSubmissions().patch(
         courseId=course_id,
         courseWorkId=coursework_id,
-        id='Cg0I4teW1CYQvp_JjqAI',
-        #updateMask='assignedGrade,draftGrade',
-        body={}).execute()
-        #body=studentSubmission).execute()
-updateCalificacion(275450839438, 283498401726, 100905005032845497156)
+        id=submission_id,
+        updateMask='assignedGrade,draftGrade',
+        body=studentSubmission).execute()
+    ##
+    
+updateCalificacion(291374157706, 291383409581, 'Cg4I99KxudYDEK33t769CA', 113580004965193682564)
+
+##Agregar un archivo como respuesta
+def add_attachment(course_id, coursework_id, submission_id):
+    """ Adds an attachment to a student submission. """
+    request = {
+        'addAttachments': [
+            {'link': {'url': 'http://example.com/quiz-results'}},
+            {'link': {'url': 'http://example.com/quiz-reading'}}
+        ]
+    }
+    coursework = service.courses().courseWork()
+    coursework.studentSubmissions().modifyAttachments(
+        courseId=course_id,    
+        courseWorkId=coursework_id,
+        id=submission_id,
+        body=request).execute()
+
+#add_attachment(291374157706, 291383409581, 'Cg4I99KxudYDEK33t769CA')
+

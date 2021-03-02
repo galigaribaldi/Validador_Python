@@ -17,16 +17,13 @@ for i in courses:
     print(i["id"], i["name"])
 
 course = {
-    'name': '10th Grade Biology',
+    'name': 'Curso Nuevo de Prueba',
     'section': 'Period 2',
-    'descriptionHeading': 'Welcome to 10th Grade Biology',
-    'description': """We'll be learning about about the
-                         structure of living creatures from a
-                         combination of textbooks, guest lectures,
-                         and lab work. Expect to be excited!""",
+    'descriptionHeading': 'Este es un curso de pruena',
+    'description': """La descripcion mamalona""",
     'room': '301',
     'ownerId': 'me',
     'courseState': 'PROVISIONED'
     }
-course = service.courses().create(body=course).execute()
-print('Course created: %s %s' % (course.get('name'), course.get('id')))
+#course = service.courses().create(body=course).execute()
+#print('Course created: %s %s' % (course.get('name'), course.get('id')))

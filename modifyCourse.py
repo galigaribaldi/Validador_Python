@@ -25,10 +25,10 @@ vCoursers(numId)
 
 def uCourses(numId):
     course = service.courses().get(id=numId).execute()
-    course['name'] = "Curso creado desde 0"
-    course['section'] = 'Period 3'
-    course['room'] = '302'
-    course['description'] = 'Descripcion del curso'
+    course['name'] = "Curso creado desde 0 again"
+    course['section'] = 'Period 30'
+    course['room'] = '302sa'
+    course['description'] = 'Descripcion del curso Again'
     course = service.courses().update(id=numId, body=course).execute()
     print('Course %s updated.' % course.get('name'))
 

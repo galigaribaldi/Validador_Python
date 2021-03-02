@@ -4,15 +4,23 @@ import os.path
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
-
 # If modifying these scopes, delete the file token.pickle.
-SCOPES = ['https://www.googleapis.com/auth/classroom.courses', 
+SCOPES = ['https://www.googleapis.com/auth/classroom.courses',
+          'https://www.googleapis.com/auth/classroom.courses.readonly',
           'https://www.googleapis.com/auth/classroom.rosters',
-          'https://www.googleapis.com/auth/classroom.coursework.students',
+          'https://www.googleapis.com/auth/classroom.rosters.readonly',
+          #'https://www.googleapis.com/auth/classroom.coursework.me.readonly',
           'https://www.googleapis.com/auth/classroom.coursework.me',
+          'https://www.googleapis.com/auth/classroom.coursework.students',
+          #'https://www.googleapis.com/auth/classroom.coursework.students.readonly',
           'https://www.googleapis.com/auth/classroom.announcements',
+          'https://www.googleapis.com/auth/classroom.announcements.readonly',
           'https://www.googleapis.com/auth/classroom.guardianlinks.students',
-          'https://www.googleapis.com/auth/classroom.profile.emails'
+          'https://www.googleapis.com/auth/classroom.guardianlinks.students.readonly',
+          'https://www.googleapis.com/auth/classroom.guardianlinks.me.readonly',
+          'https://www.googleapis.com/auth/classroom.profile.emails',
+          'https://www.googleapis.com/auth/classroom.push-notifications',
+          'https://www.googleapis.com/auth/classroom.profile.photos'
           ]
 
 def main():

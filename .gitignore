@@ -2,3 +2,4 @@ prueba*
 __pycache__
 *.txt
 *.pickle
+.DS_Store

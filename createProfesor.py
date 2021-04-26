@@ -46,16 +46,17 @@ def addStudent(numId, student_email):
     except HttpError as error:
         print('You are already a member of this course.')    
 
-addStudent(275450839438,'galigaribaldi@live.com')
+#addStudent(275450839438,'galigaribaldi@live.com')
 
 def viewStudents(numId, user_Id):
     student = service.courses().students()
-    student1 = service.userProfiles().get(userId = user_Id).execute()
+    student1 = service.userProfiles().get()
+    #student1 = service.userProfiles().get(userId = user_Id).execute()
     print("ID Alumno: ", student1['id'])
     print("Nombre Alumno: ", student1['name']['fullName']) 
     print("Email: ", student1['emailAddress'])
     print("\n")
-#viewStudents(275450839438,100905005032845497156)
+viewStudents(275450839438,100905005032845497156)
 #viewStudents(275450839438,102278109585891765381)
 #viewStudents(275450839438,113580004965193682564)
 #viewStudents(275450839438,105429210421642055860)

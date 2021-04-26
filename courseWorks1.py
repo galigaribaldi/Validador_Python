@@ -51,15 +51,16 @@ def list_submissions(course_id, coursework_id):
         print('No student submissions found.')
     else:
         print('Student Submissions:')
-       # print(submissions)
+        print(submissions)
+        input()
         for submission in submissions:
             #print("%s was submitted at %s" %(submission.get('id'),submission.get('creationTime')))
             #print(submission)
-            print("Course ID: [%s]\nCourseWork ID: [%s]\nUserID: [%s]\nSubmission ID: [%s]" %(submission.get('courseId'), submission.get('courseWorkId'), submission.get('userId'), submission.get('id')))
+            print("Curso ID: [%s]\Tarea ID: [%s]\nUserID: [%s]\nSubmission ID: [%s]" %(submission.get('courseId'), submission.get('courseWorkId'), submission.get('userId'), submission.get('id')))
             print("\n")
     # [END classroom_list_submissions]
 
-#list_submissions(291374157706, 291383409581)
+list_submissions(291374157706, 291383409581)
 
 ##Consultar el progrso de las actividades de 
 def list_student_submissions(course_id, coursework_id, user_id):
@@ -103,7 +104,7 @@ def updateCalificacion(course_id, coursework_id, submission_id,student_id):
         body=studentSubmission).execute()
     ##
     
-updateCalificacion(291374157706, 291383409581, 'Cg4I99KxudYDEK33t769CA', 113580004965193682564)
+#updateCalificacion(291374157706, 291383409581, 'Cg4I99KxudYDEK33t769CA', 113580004965193682564)
 
 ##Agregar un archivo como respuesta
 def add_attachment(course_id, coursework_id, submission_id):

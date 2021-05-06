@@ -10,7 +10,7 @@ import pandas as pd
 ##Retorna Dataframe: id Curso, nombre Curso, Descripcion Curso
 def get_all_courses():
     service = model.returns_service()
-    results = service.courses().list(pageSize=10).execute()
+    results = service.courses().list(pageSize=20).execute()
     #courses = []
     cont = 0
     df = pd.DataFrame(columns=['ID_Curso', 'Nombre_Curso', 'Descripcion'], index=range(len(results['courses'])))

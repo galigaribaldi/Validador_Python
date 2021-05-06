@@ -8,9 +8,11 @@ import pandas as pd
 
 def convert_allCourses():
     c = cursos.get_all_courses()
+    print(c)
     c.to_excel("Cursos.xlsx")
 
-listaGrados = {"K3":126382145220,"1ro":126382145238,"2do":126382430010,
+
+listaGrados = {"K2":126380062908,"K3":126382145220,"1ro":126382145238,"2do":126382430010,
                "3ro":126382430032,
                 "4to":126382430048,
                 "5to":126382430066,
@@ -89,4 +91,25 @@ def generar_resumen(Clave):
             resumen2.append(resumen)
             tabla.generar_tabla(resumen2, "Tabla1")
             enviar.enviar_correo_PDF(users['EmailStudent'][i],"Calificacion (Resumen PDF)","Tabla1.pdf")            
-generar_resumen('3ro')
+            
+
+def generar_resumen_grados(Clave):
+    users = cursos.get_users_by_idCourse(listaGrados[Clave])
+    c = resumen_Actividades(1,2021, listaGrados[Clave])
+    Final = pd.DataFrame()
+    for i in range(len(users['StudentID'])):
+        ##Enviar Explicacion
+        ###Generacion de PDF
+        resumen = []
+        resumen2=[['Nombre Del Alumno', 'Asistencia', 'Tareas', 'Proyecto','Promedio Final' ]]
+        ###Generacion de Excel
+        print(users['StudentID'][i])
+        nuevo = c[c['StudentID'] == users['StudentID'][i]]
+        nuevo = nuevo.drop(['CourseID','CourseWorkID','StudentID','FechaCreacion_x'], axis=1)
+        Promedio = nuevo['Calificacion'].mean()
+        print("Promedio: "+str(Promedio))
+        ###Generacion de Excel
+        Final = pd.concat([Final, nuevo])
+    Final.to_excel("Resumen.xlsx")
+
+generar_resumen_grados('K3')

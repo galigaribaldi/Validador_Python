@@ -35,6 +35,39 @@ def resumen_Actividades(mes,anio, Grado):
     Final3 = pd.merge(left=Final2, right=users, left_on='StudentID', right_on='StudentID')
     return Final3
 
+def resumen_Actividades_tipo(mes,anio, Grado,tipo_actividad):
+    n = cursos.courses_list_activities(Grado, mes,anio)
+    act = cursos.return_themes_by_name(Grado, tipo_actividad)
+    #print(act.head)
+    #print(n.head)
+    d = pd.merge(left=n, right=act, left_on='TopicId', right_on='TopicId')
+    users = cursos.get_users_by_idCourse(Grado)
+    Final = pd.DataFrame()
+    for i in d['CourseWorkID']:
+        actividades = cursos.sumbiss_student_courseWork(Grado,i)
+        Final = pd.concat([actividades, Final])
+        #Final = pd.merge(left=d, right=actividades, left_on='CourseWorkID', right_on='CourseWorkID')
+    Final2 = pd.merge(left=Final, right=d, left_on='CourseWorkID', right_on='CourseWorkID')
+    Final3 = pd.merge(left=Final2, right=users, left_on='StudentID', right_on='StudentID')
+    return Final3
+
+def resumen_Total_tipo(mes,anio, Grado, GradoStr):
+    allThemes = cursos.return_all_themes(Grado)
+    users = cursos.get_users_by_idCourse(Grado)
+    Resumen = pd.DataFrame()
+    with pd.ExcelWriter(GradoStr+"_Resumen"+'.xlsx') as writer:
+        for i in allThemes['name']:
+            data = resumen_Actividades_tipo(mes,anio, Grado,i)
+            for j in users['StudentID']:
+                nuevo = pd.merge(left=users, right=data,left_on='StudentID', right_on='StudentID')
+                Promedio = nuevo['Calificacion'].mean()
+                print(i, j, "Promedio: ", Promedio)
+            data.to_excel(writer,sheet_name=i)
+        
+
+d = resumen_Total_tipo(1,2021,listaGrados['4to'],'4to')
+
+
 def generar_resumen(Clave):
     users = cursos.get_users_by_idCourse(listaGrados[Clave])
     c = resumen_Actividades(1,2021, listaGrados[Clave])
@@ -93,23 +126,3 @@ def generar_resumen(Clave):
             enviar.enviar_correo_PDF(users['EmailStudent'][i],"Calificacion (Resumen PDF)","Tabla1.pdf")            
             
 
-def generar_resumen_grados(Clave):
-    users = cursos.get_users_by_idCourse(listaGrados[Clave])
-    c = resumen_Actividades(1,2021, listaGrados[Clave])
-    Final = pd.DataFrame()
-    for i in range(len(users['StudentID'])):
-        ##Enviar Explicacion
-        ###Generacion de PDF
-        resumen = []
-        resumen2=[['Nombre Del Alumno', 'Asistencia', 'Tareas', 'Proyecto','Promedio Final' ]]
-        ###Generacion de Excel
-        print(users['StudentID'][i])
-        nuevo = c[c['StudentID'] == users['StudentID'][i]]
-        nuevo = nuevo.drop(['CourseID','CourseWorkID','StudentID','FechaCreacion_x'], axis=1)
-        Promedio = nuevo['Calificacion'].mean()
-        print("Promedio: "+str(Promedio))
-        ###Generacion de Excel
-        Final = pd.concat([Final, nuevo])
-    Final.to_excel("Resumen.xlsx")
-
-generar_resumen_grados('K3')

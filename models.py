@@ -1,12 +1,16 @@
-from googleapiclient.discovery import build
-from google.oauth2.credentials import Credentials
+from __future__ import print_function
 import os.path
-import pickle
+from googleapiclient.discovery import build
+from google_auth_oauthlib.flow import InstalledAppFlow
+from google.auth.transport.requests import Request
+from google.oauth2.credentials import Credentials
+
 SCOPES = ['https://www.googleapis.com/auth/classroom.courses',
           'https://www.googleapis.com/auth/classroom.courses.readonly',
           'https://www.googleapis.com/auth/classroom.rosters',
           'https://www.googleapis.com/auth/classroom.rosters.readonly',
-          #'https://www.googleapis.com/auth/classroom.coursework.me.readonly',
+          'https://www.googleapis.com/auth/classroom.topics',
+          'https://www.googleapis.com/auth/classroom.topics.readonly',
           'https://www.googleapis.com/auth/classroom.coursework.me',
           'https://www.googleapis.com/auth/classroom.coursework.students',
           #'https://www.googleapis.com/auth/classroom.coursework.students.readonly',
@@ -43,3 +47,4 @@ def returns_service():
 
     service = build('classroom', 'v1', credentials=creds)
     return service
+#c= returns_service()

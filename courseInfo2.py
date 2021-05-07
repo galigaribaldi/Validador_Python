@@ -23,8 +23,6 @@ def get_all_courses():
         cont = cont+1
     return df
 
-#c = get_all_courses()
-#print(c)
 ###Retorna Dataframe: ID, nombre, email
 def get_users_by_idCourse(Courses_id):
     service = model.returns_service()
@@ -58,7 +56,7 @@ def courses_list_activities(course_id, mesFiltro, anioFiltro):
     service = model.returns_service()
     results = service.courses().courseWork().list(courseId=course_id).execute()
     list_activities = []
-    df = pd.DataFrame(columns=['CourseWorkID', 'Titulo', 'Descripcion','FechaCreacion','PuntosMaximos','FechaEntrega'], index=range(len(results['courseWork'])))
+    df = pd.DataFrame(columns=['CourseWorkID', 'TopicId','Titulo', 'Descripcion','FechaCreacion','PuntosMaximos','FechaEntrega'], index=range(len(results['courseWork'])))
     cont = 0
     for i in results['courseWork']:
         l = []
@@ -69,10 +67,13 @@ def courses_list_activities(course_id, mesFiltro, anioFiltro):
             if i['dueDate']['month'] >mesFiltro and i['dueDate']['year'] == anioFiltro:
                 l.append(i['id'])
                 try:
+                    l.append(i['topicId'])
+                except:
+                    l.append("Sin Tema Asignado")                
+                try:
                     l.append(i['title'])
                 except:
                     l.append("Sin Titulo")
-                
                 try:
                     l.append(i['description'])
                 except:
@@ -134,7 +135,58 @@ def sumbiss_student_courseWork(course_id, course_work_id):
 #c = get_course_by_id(275450839438)
 #c = get_users_by_idCourse(275450839438)
 #c = get_all_courses()
-#print(c)
-CourseworkId=276311125107
+##Retorna un DF con El curso ID, el nombre del tema y la fecha de creacion
+def return_all_themes(course_id):
+    service = model.returns_service()
+    results = service.courses().topics().list(courseId=course_id).execute()    
+    df = pd.DataFrame(columns=['CourseId', 'TopicId', 'name','UpdateTime'], index=range(len(results['topic'])))
+    cont = 0
+    for i in results['topic']:
+        l = []
+        try:
+            l.append(i["courseId"]);l.append(i["topicId"])
+        except:
+            l.append("NULL")
+        try:
+            l.append(i["name"])
+        except:
+            l.append("NULL")
+        try:
+            l.append(i["updateTime"])
+        except:
+            l.append("NULL")
+        df.iloc[cont] = l
+        cont = cont+1
+    df = df[df.name != 'Material']
+    df = df[df.name != 'Materiales']
+    return df
+
+def return_themes_by_name(course_id,names):
+    service = model.returns_service()
+    results = service.courses().topics().list(courseId=course_id).execute()    
+    df = pd.DataFrame(columns=['CourseId', 'TopicId', 'name','UpdateTime'], index=range(len(results['topic'])))
+    cont = 0
+    for i in results['topic']:
+        l = []
+        try:
+            l.append(i["courseId"]);l.append(i["topicId"])
+        except:
+            l.append("NULL")
+        try:
+            l.append(i["name"])
+        except:
+            l.append("NULL")
+        try:
+            l.append(i["updateTime"])
+        except:
+            l.append("NULL")
+        df.iloc[cont] = l
+        cont = cont+1
+    df = df[df.name == names]
+    return df
+CourseworkId=274276159449
 StudentId=113580004965193682564
-CourseId = 126382145220
+CourseId = 126383120623
+#c = return_all_themes(126382430048)
+#print(c)
+#c = return_themes_by_name(CourseId, 'Tarea')
